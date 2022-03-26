@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/page/homepages/articles/article_list.dart';
 import 'package:news_app/search/search.dart';
 
-import '../util/color.dart';
+import '../../../util/color.dart';
+import '../../../util/color.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
@@ -21,13 +23,13 @@ const List<Tab> _tabs = <Tab> [
 ];
 
 final List<Widget> _tabContent = [
-  const Text('11111'),
-  const Text('11111'),
-  const Text('11111'),
-  const Text('11111'),
-  const Text('11111'),
-  const Text('11111'),
-  const Text('11111'),
+  const ArticleList(),
+  const ArticleList(),
+  const ArticleList(),
+  const ArticleList(),
+  const ArticleList(),
+  const ArticleList(),
+  const ArticleList(),
 ];
 
 class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin{

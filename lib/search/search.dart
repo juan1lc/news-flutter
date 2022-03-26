@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/util/color.dart';
 
 class SearchHead extends StatelessWidget {
   const SearchHead({Key? key}) : super(key: key);
@@ -7,17 +8,26 @@ class SearchHead extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset(
-          'assets/images/logo01.png',
-          height: 40,
-        ),
+        // Image.asset(
+        //   'assets/images/logo2.png',
+        //   height: 60,
+        // ),
         Expanded(
             child: _searchContent(),
         ),
-        Image.asset(
-          'assets/icons/message_icon.png',
-          height: 24,
+        OutlinedButton(
+            onPressed: (){},
+            child: const Text(
+              "搜 索",
+              style: TextStyle(color: loginColor, fontWeight: FontWeight.bold),
+            ),
+
         )
+        // Icon(Icons.search, color: loginColor,),
+        // Image.asset(
+        //   'assets/icons/message_icon.png',
+        //   height: 24,
+        // )
       ],
     );
   }

@@ -35,8 +35,8 @@ class _TransitPageState extends State<TransitPage> {
     _timer.cancel();
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(
-          //builder: (BuildContext context)=>const MainPage(),
-          builder: (BuildContext context)=>const LoginPage(),
+          builder: (BuildContext context)=>const MainPage(),
+          //builder: (BuildContext context)=>const LoginPage(),
         ),
             (route) => false
     );

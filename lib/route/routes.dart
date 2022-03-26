@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/page/homepages/posts/create_post.dart';
 
-import '../page/home_page.dart';
+import '../page/homepages/articles/home_page.dart';
+import '../page/profiles/editpages/edit_name.dart';
+import '../page/profiles/editpages/editing_userinfo.dart';
 
 
 //配置路由
 final routes = {
   '/': (context) => const HomePage(),
+  '/create':(context) => const CreatePage(),
+  '/editingInfo':(context) => const UserInfoEditing(),
+  'editName':(context, username, id) => EditName(username: username, id: id),
   //'/Login': (context, {arguments}) => Login(),
 };
 

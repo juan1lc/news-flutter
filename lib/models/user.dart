@@ -4,7 +4,7 @@ import 'dart:convert';
 /// 用于用户登录、注册
 ///
 class User {
-  final String id;
+  final String? id;
   final String role_id;
   final String username;
   final String? photo;
@@ -16,13 +16,13 @@ class User {
   final String? introduction;
 
 
-  User({required this.id ,required this.role_id, required this.username, this.photo, this.phone, this.mail,
-      this.birth, this.address, this.gender, this.introduction});
+  User({this.id ,required this.role_id, required this.username, this.photo, this.phone, this.mail,
+      this.birth, this.address, this.gender, this.introduction, String? password});
 
 
   @override
   String toString() {
-    return '{id: '+id
+    return '{id: '+id.toString()
         +', username: '+username
         +', role_id: '+role_id
         +', mail: '+mail.toString()
@@ -35,12 +35,12 @@ class User {
         +'}';
   }
 
-  // ///
-  // /// 创建用户登录模型
-  // ///
-  // factory User.createLoginUser(String username, String password){
-  //   return User(username: username, password: password);
-  // }
+  ///
+  /// 创建用户登录模型
+  ///
+  factory User.createLoginUser(String username, String password){
+    return User(username: username, password: password, role_id: '1');
+  }
 
   ///
   /// Json数据转换

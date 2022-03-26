@@ -2,11 +2,11 @@ class API {
 
   // ****************** 服务器信息 ***********************
   static final String protocol = 'http://';
-  static final String hostName = '172.21.33.201'; // 服务器IP地址 （本机模拟器使用）
+  static final String hostName = '172.21.34.83'; // 服务器IP地址 （本机模拟器使用）
   //static final String hostName = 'bju.server.hzwei.top'; // 服务器IP地址 手机（真机）使用
   static final int port = 8080;
   //static final String appName = 'news-springboot'; // app name
-  static const String baseUri = 'http://127.0.0.1:8080'; // 基本路径地址（本机模拟器使用）
+  static const String baseUri = 'http://172.21.34.83:8080'; // 基本路径地址（本机模拟器使用）
   //static final String baseUri = '$protocol$hostName/$appName'; // 基本路径地址 手机（真机）使用
 
 
@@ -16,7 +16,7 @@ class API {
   /// 账号密码登录 === [POST]
   static final String findUserAPI = '$baseUri/login/by-name';
   /// 新用户注册接口 === [POST]
-  static final String register = '$baseUri/register';
+  static final String registerAPI = '$baseUri/register';
 
   /// 动态发布接口 === [POST]
   static final String publishMoving = '$baseUri/moving/publish';
