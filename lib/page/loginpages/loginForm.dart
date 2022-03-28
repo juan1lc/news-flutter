@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:news_app/provider/user_info.dart';
+import 'package:provider/provider.dart';
 import '../../api/api.dart';
 import '../../models/user.dart';
 import '../../util/color.dart';
@@ -30,7 +32,7 @@ class _loginFormState extends State<LoginForm> {
   bool _allowLogin = false;
   bool _isShowClear = false;
   bool _isShowPwd = false;
-  Map _userInfo = {};
+  late User _userInfo;
 
   _findUser(String username, String password) async{
 
@@ -40,11 +42,13 @@ class _loginFormState extends State<LoginForm> {
     //print(apiUrl);
     var response = await http.post(apiUrl, body: {"username":username, "password": password});
     if (response.statusCode == 200) {
-      print(json.decode(response.body));
       try {
         setState(() {
           if (json.decode(response.body)["id"] != null) {
-            _userInfo = json.decode(response.body);
+            _userInfo=User.fromJson(json.decode(response.body));
+
+            UserInfoProvider userInfoProvider = Provider.of<UserInfoProvider>(context,listen: false);
+            userInfoProvider.doLogin(_userInfo);
             _allowLogin = true;
           } else {
             _allowLogin = false;

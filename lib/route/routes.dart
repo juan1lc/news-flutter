@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/page/homepages/posts/create_post.dart';
+import 'package:news_app/page/loginpages/loginPage.dart';
 
+import '../models/user.dart';
 import '../page/homepages/articles/home_page.dart';
 import '../page/profiles/editpages/edit_name.dart';
 import '../page/profiles/editpages/editing_userinfo.dart';
@@ -10,9 +12,9 @@ import '../page/profiles/editpages/editing_userinfo.dart';
 final routes = {
   '/': (context) => const HomePage(),
   '/create':(context) => const CreatePage(),
-  '/editingInfo':(context) => const UserInfoEditing(),
-  'editName':(context, username, id) => EditName(username: username, id: id),
-  //'/Login': (context, {arguments}) => Login(),
+  '/login':(context) => const LoginPage(),
+  // '/editingInfo':(context,{arguments}) => UserInfoEditing(arguments:arguments),
+  // '/editName':(context,{arguments}) => EditName(arguments:arguments),
 };
 
 //固定写法

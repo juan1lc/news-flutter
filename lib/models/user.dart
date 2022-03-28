@@ -3,20 +3,21 @@ import 'dart:convert';
 /// 用户模型
 /// 用于用户登录、注册
 ///
+
 class User {
-  final String? id;
+  final String id;
   final String role_id;
-  final String username;
+  late final String username;
   final String? photo;
-  final String? phone;
-  final String? mail;
-  final String? birth;
-  final String? address;
-  final String? gender;
-  final String? introduction;
+  late final String? phone;
+  late final String? mail;
+  late final String? birth;
+  late final String? address;
+  late final String? gender;
+  late final String? introduction;
 
 
-  User({this.id ,required this.role_id, required this.username, this.photo, this.phone, this.mail,
+  User({required this.id ,required this.role_id, required this.username, this.photo, this.phone, this.mail,
       this.birth, this.address, this.gender, this.introduction, String? password});
 
 
@@ -36,27 +37,25 @@ class User {
   }
 
   ///
-  /// 创建用户登录模型
-  ///
-  factory User.createLoginUser(String username, String password){
-    return User(username: username, password: password, role_id: '1');
-  }
-
-  ///
   /// Json数据转换
   ///
   factory User.fromJson(Map<String,dynamic> json){
     print('用户model获取服务器数据信息：json=$json');
+    String gender;
+    if(json['gender']=='MALE') gender='男';
+    else if(json['gender']=='FEMALE') gender='女';
+    else gender='未知';
     return User(
       id: json.putIfAbsent('id',() => null), // 非空
       username:json.putIfAbsent('username',() => null), // 非空
       role_id:json.putIfAbsent('role_id', () => null), // 非空
-      mail: json.putIfAbsent('mail', () => ''),
-      phone:json.putIfAbsent('phone',() => null), // 非空
-      birth:json.putIfAbsent('birth', () => ''),
-      address:json.putIfAbsent('address', () => ''),
-      photo:json.putIfAbsent('photo', () => ''),
-      introduction:json.putIfAbsent('introduction', () => '')
+      mail: json.putIfAbsent('mail', () => '空'),
+      phone:json.putIfAbsent('phone',() => '空'), // 非空
+      birth:json.putIfAbsent('birth', () => '空'),
+      address:json.putIfAbsent('address', () => '空'),
+      photo:json.putIfAbsent('photo', () => '空'),
+      introduction:json.putIfAbsent('introduction', () => '空'),
+      gender: gender
     );
   }
 

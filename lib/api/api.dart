@@ -12,11 +12,13 @@ class API {
 
 
 
-  //  ******************** passport ********************
+  //  ******************** 用户相关 ********************
   /// 账号密码登录 === [POST]
   static final String findUserAPI = '$baseUri/login/by-name';
   /// 新用户注册接口 === [POST]
   static final String registerAPI = '$baseUri/register';
+  /// 修改用户信息接口 === [PUT] /{id}/edit
+  static final String updateUserInfo = '$baseUri/users/info/edit';
 
   /// 动态发布接口 === [POST]
   static final String publishMoving = '$baseUri/moving/publish';
@@ -53,9 +55,6 @@ class API {
 
   /// 平台系统用户默认头像地址
   static final String defaultAvatarURL = '$baseUri/static/avatars/default_avatar.jpg';
-
-  /// 修改用户信息 === [PUT]
-  static final String updateUserInfo = '$baseUri/user/info/edit';
 
   /// 模糊搜索动态信息({searchKeyword}) === [GET]
   static final String fuzzySearchMoving = '$baseUri/moving/fuzzy/';

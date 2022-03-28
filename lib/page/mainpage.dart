@@ -8,6 +8,9 @@ import 'favoritepages/favorite_page.dart';
 import 'homepages/articles/home_page.dart';
 import 'profiles/myself.dart';
 
+import 'package:provider/provider.dart';
+import '../../provider/user_info.dart';
+
 List<Widget> pages = [
   const HomePage(),
   const FavoritePage(),
@@ -42,10 +45,6 @@ Widget _floatCreateButtom(BuildContext context){
   );
 }
 
-void _onCreateButtom(BuildContext context){
-
-}
-
 class MainPage extends StatefulWidget{
   const MainPage({Key? key}) : super(key: key);
 
@@ -59,24 +58,31 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: barItems,
-        currentIndex: _currentIndex,
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: 18,
-        unselectedFontSize: 16,
-        iconSize: 24,
+    return Consumer<UserInfoProvider>(
+        builder: (context, loginProvider, child) {
+          bool isLogin = loginProvider.isLogin; // Test use
+          print('登录状态：isLogin=' + isLogin.toString());
 
-      ),
-        floatingActionButton: _floatCreateButtom(context),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          return Scaffold(
+            body: pages[_currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              items: barItems,
+              currentIndex: _currentIndex,
+              type: BottomNavigationBarType.fixed,
+              selectedFontSize: 18,
+              unselectedFontSize: 16,
+              iconSize: 24,
+
+            ),
+            floatingActionButton: !isLogin ? null : _floatCreateButtom(context),
+            //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          );
+        }
     );
   }
 }
