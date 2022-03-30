@@ -17,17 +17,17 @@ class API {
   static final String findUserAPI = '$baseUri/login/by-name';
   /// 新用户注册接口 === [POST]
   static final String registerAPI = '$baseUri/register';
-  /// 修改用户信息接口 === [PUT] /{id}/edit
+  /// 修改用户信息接口 === [PUT]
   static final String updateUserInfo = '$baseUri/users/info/edit';
 
   /// 动态发布接口 === [POST]
-  static final String publishMoving = '$baseUri/moving/publish';
+  static final String publishPost = '$baseUri/posts/publish-post';
 
   /// 用户中心计数项接口 === [GET]
   static final String allCounts = "$baseUri/user/info/counts";
 
-  /// 获取模块下话题接口 === [GET]
-  static final String topics = '$baseUri/module/topic';
+  /// 获取标签接口 === [GET]
+  static final String allTags = '$baseUri/tags/list';
 
   /// 获取院系及专业信息 === [GET]
   static final String allFacultyAndSpecialty = '$baseUri/faculties';

@@ -27,7 +27,7 @@ class _MyselfPage extends State<MyselfPage>{
         return !isLogin?
         Container(
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/bg.png"),
               fit: BoxFit.cover,
@@ -41,7 +41,7 @@ class _MyselfPage extends State<MyselfPage>{
                 onPressed: () {Navigator.pushNamed(context, '/login');},
                 elevation: 2.0,
                 fillColor: loginColor,
-                child: Text(
+                child: const Text(
                   "登录", style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -49,11 +49,11 @@ class _MyselfPage extends State<MyselfPage>{
                     wordSpacing: 2,
                   )
                 ),
-                padding: EdgeInsets.all(15.0),
-                shape: CircleBorder(),
+                padding: const EdgeInsets.all(15.0),
+                shape: const CircleBorder(),
               ),
-              SizedBox(height: 20,),
-              Text("您还未登录，请先登录")
+              const SizedBox(height: 20,),
+              const Text("您还未登录，请先登录")
             ],
           ),
         ):Scaffold(
