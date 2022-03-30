@@ -5,7 +5,7 @@ import 'package:news_app/widget/Banner.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/user.dart';
-import '../../../provider/user_info.dart';
+import '../../../provider/user_info_provider.dart';
 import '../../../util/color.dart';
 import 'header.dart';
 
@@ -23,8 +23,7 @@ class _DiscussPage extends State<DiscussPage>{
   Widget build(BuildContext context) {
     return Consumer<UserInfoProvider>(
       builder: (context, loginProvider, child){
-        bool isLogin = loginProvider.isLogin; // Test use
-        print('登录状态：isLogin=' + isLogin.toString());
+        bool isLogin = loginProvider.isLogin;
 
         if(isLogin) userInfo = loginProvider.loginUser;
         return !isLogin?
@@ -35,14 +34,14 @@ class _DiscussPage extends State<DiscussPage>{
                 children: <Widget>[
                   Header(avatar: 'assets/images/defaultAvatar.png',
                     username: '点击登录', isLogin: isLogin,),
-                  UserBanner(title: "用 户 推 荐"),
+                  const UserBanner(title: "用 户 推 荐"),
 
-                  PostCard(
-                      photo: 'assets/images/avatar3.jpg',
-                      username: "刘宇",
-                      content: "武汉两名参与新型肺炎救治医生被患者家属打伤防护服被撕扯 警方已介入,"
-
-                  )
+                  // PostCard(
+                  //     photo: 'assets/images/avatar3.jpg',
+                  //     username: "刘宇",
+                  //     content: "武汉两名参与新型肺炎救治医生被患者家属打伤防护服被撕扯 警方已介入,"
+                  //
+                  // )
 
                 ],
               ),
@@ -56,12 +55,12 @@ class _DiscussPage extends State<DiscussPage>{
                     username: userInfo!.username, isLogin: isLogin,),
                   UserBanner(title: "用 户 推 荐"),
 
-                  PostCard(
-                      photo: 'assets/images/avatar3.jpg',
-                      username: "刘宇",
-                      content: "武汉两名参与新型肺炎救治医生被患者家属打伤防护服被撕扯 谨防已介入,"
-
-                  )
+                  // PostCard(
+                  //     photo: 'assets/images/avatar3.jpg',
+                  //     username: "刘宇",
+                  //     content: "武汉两名参与新型肺炎救治医生被患者家属打伤防护服被撕扯 谨防已介入,"
+                  //
+                  // )
 
                 ],
               ),

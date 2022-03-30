@@ -9,7 +9,7 @@ import 'homepages/articles/home_page.dart';
 import 'profiles/myself.dart';
 
 import 'package:provider/provider.dart';
-import '../../provider/user_info.dart';
+import '../../provider/user_info_provider.dart';
 
 List<Widget> pages = [
   const HomePage(),

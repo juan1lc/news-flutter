@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:news_app/provider/user_info.dart';
+import 'package:news_app/page/loginpages/registerPage.dart';
+import 'package:news_app/provider/user_info_provider.dart';
 import 'package:provider/provider.dart';
 import '../../api/api.dart';
 import '../../models/user.dart';
@@ -286,7 +287,11 @@ class _loginFormState extends State<LoginForm> {
                           fontWeight: FontWeight.w400
                       ),
                     ),
-                    onPressed:(){}
+                    onPressed:(){
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>RegisterPage()));
+                    }
                 )
               ],
             )

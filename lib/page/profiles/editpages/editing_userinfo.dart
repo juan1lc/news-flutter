@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../api/api.dart';
 import '../../../models/user.dart';
-import '../../../provider/user_info.dart';
+import '../../../provider/user_info_provider.dart';
 import '../../../util/color.dart';
 
 class UserInfoEditing extends StatefulWidget {

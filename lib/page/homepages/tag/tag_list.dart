@@ -9,9 +9,9 @@ import '../../../models/tag.dart';
 import '../posts/create_post.dart';
 
 class TagList extends StatefulWidget {
-  const TagList({Key? key, this.content}) : super(key: key);
+  const TagList({Key? key, this.pre_content}) : super(key: key);
 
-  final String? content;
+  final String? pre_content;
   @override
   _TagListState createState() => _TagListState();
 }
@@ -84,7 +84,8 @@ class _TagListState extends State<TagList> {
             fontWeight: FontWeight.bold,
             fontSize: 16
         ),
-        backgroundColor: primary,
+        backgroundColor: page,
+        foregroundColor: Colors.black87,
       ),
       body: Container(
           width: double.infinity,
@@ -121,7 +122,7 @@ class _TagListState extends State<TagList> {
                           Navigator.push(context,
                               MaterialPageRoute(builder:
                                   (context)=>CreatePage(
-                                      content: widget.content,tag:tag)
+                                      tag:tag, pre_content: widget.pre_content,)
                               ));
                           },
                         child: Center(

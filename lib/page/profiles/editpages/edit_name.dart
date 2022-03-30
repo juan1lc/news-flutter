@@ -6,7 +6,7 @@ import 'package:news_app/page/profiles/myself.dart';
 import 'package:provider/provider.dart';
 
 import '../../../api/api.dart';
-import '../../../provider/user_info.dart';
+import '../../../provider/user_info_provider.dart';
 import '../../../util/color.dart';
 import '../../../util/color.dart';
 

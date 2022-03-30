@@ -4,8 +4,9 @@ import 'package:news_app/util/color.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user.dart';
-import '../../provider/user_info.dart';
+import '../../provider/user_info_provider.dart';
 import '../../util/color.dart';
+import '../homepages/posts/user_post_lists.dart';
 
 class MyselfPage extends StatefulWidget{
   const MyselfPage({Key? key}) : super(key: key);
@@ -65,7 +66,8 @@ class _MyselfPage extends State<MyselfPage>{
                   fontWeight: FontWeight.bold,
                   fontSize: 16
               ),
-              backgroundColor: primary,
+              backgroundColor: page,
+              foregroundColor: Colors.black45,
             ),
             body: Column(
               children: <Widget> [
@@ -96,6 +98,10 @@ class _MyselfPage extends State<MyselfPage>{
                           child:ListTile(
                             title: new Center(child: Text("7")),
                             subtitle: new Center(child: Text("动态"),),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context)=>UserPostList(userid: userInfo!.id,)));
+                            },
                           ),
                         ),
                         Expanded(

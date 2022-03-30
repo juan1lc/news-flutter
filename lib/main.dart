@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:news_app/page/transit_page.dart';
-import 'package:news_app/provider/user_info.dart';
+import 'package:news_app/provider/user_info_provider.dart';
 import 'package:news_app/route/routes.dart';
 import 'package:news_app/util/app_theme.dart';
 import 'package:provider/provider.dart';

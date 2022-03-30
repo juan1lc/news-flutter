@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:news_app/page/homepages/tag/tag_list.dart';
-import 'package:news_app/provider/user_info.dart';
+import 'package:news_app/provider/user_info_provider.dart';
 import 'package:news_app/util/color.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -11,9 +11,9 @@ import '../../../api/api.dart';
 import '../../../models/user.dart';
 
 class CreatePage extends StatefulWidget{
-  const CreatePage({Key? key, this.content, this.tag}) : super(key: key);
+  const CreatePage({Key? key, this.tag, this.pre_content}) : super(key: key);
 
-  final String? content, tag;
+  final String? tag, pre_content;
   @override
   _CreatePage createState() => _CreatePage();
 }
@@ -21,12 +21,18 @@ class CreatePage extends StatefulWidget{
 
 class _CreatePage extends State<CreatePage>{
   User? userInfo;
+  String? content;
 
   /// 表单状态
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   /// 控制器
   final TextEditingController _textEditingController = TextEditingController();
 
+  void initState(){
+    super.initState();
+    if(widget.pre_content!=null) {content=widget.pre_content;
+    _textEditingController.text = content!;}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,32 +44,33 @@ class _CreatePage extends State<CreatePage>{
 
         if(isLogin) userInfo = loginProvider.loginUser;
 
-        if(widget.tag!=null && widget.content!=null) {
-          _textEditingController.text = widget.content.toString()+
-              ' # '+ widget.tag.toString() + ' # ';
-        }
-        else if(widget.tag!=null && widget.content==null){
-          _textEditingController.text = ' # '+ widget.tag.toString() + ' # ';
-        }
+
         return Scaffold(
 
             appBar: AppBar(
               centerTitle: true,
               title: _CreateHead(id: userInfo!.id,username: userInfo!.username,
-                  content:_textEditingController.text, tag: widget.tag,),
+                  content:content, tag: widget.tag,),
               foregroundColor: active,
               backgroundColor: primary,
             ),
             body: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget> [
-                  const SizedBox(height: 2,),
                   Form(
                       child: TextFormField(
                         controller: _textEditingController,
                         maxLength: 255,
                         keyboardType: TextInputType.text,
-                        maxLines: 25,
+                        maxLines: 20,
+                        onChanged: (value){
+                          content = value;
+
+                          setState(() {
+                            content = value;
+                          });
+                        },
                         decoration: const InputDecoration(
                           border: InputBorder.none,//去掉输入框的下滑线
                           fillColor: nav,
@@ -73,15 +80,30 @@ class _CreatePage extends State<CreatePage>{
                           //     borderRadius:BorderRadius.circular(4)
                           // ),
                         ),
-                      )
+                      ),
+                  ),
+                  (widget.tag!=null)? TextButton(
+                      onPressed: (){}, child: Text('# '+widget.tag.toString(),
+                      style:TextStyle(
+                        color: loginColor
+                      ))
+                  ):TextButton(
+                      onPressed: (){
+                        var nav = Navigator.push(context,
+                            MaterialPageRoute(builder: (context)=>TagList(pre_content: content,))
+                        );
+                      }, child: Text('点击添加标签',
+                      style:TextStyle(
+                          color: loginColor
+                      ))
                   ),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      IconContainer(Icons.tag, "添加标签", widget.content),
-                      IconContainer(Icons.perm_media, "选择图片", widget.content),
-                      IconContainer(Icons.alternate_email, "艾特朋友",  widget.content)
+                      IconContainer(Icons.tag, "添加标签", pre_content: content,),
+                      IconContainer(Icons.perm_media, "选择图片"),
+                      IconContainer(Icons.alternate_email, "艾特朋友")
                     ],
                   )
                 ],
@@ -98,13 +120,14 @@ class _CreatePage extends State<CreatePage>{
 class IconContainer extends StatelessWidget {
   final IconData iconImage;
   final String iconName;
-  String? content;
-  IconContainer(this.iconImage, this.iconName, this.content
-  , {Key? key})
+  final String? pre_content;
+  IconContainer(this.iconImage, this.iconName
+  , {Key? key, this.pre_content})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print('precontent'+pre_content.toString());
     return Container(
         height: 80,
         width: 80,
@@ -121,7 +144,7 @@ class IconContainer extends StatelessWidget {
                 onPressed: () {
                   if(iconName == "添加标签") {
                     var nav = Navigator.push(context,
-                        MaterialPageRoute(builder: (context)=>TagList(content: content))
+                        MaterialPageRoute(builder: (context)=>TagList(pre_content: pre_content,))
                     );
                     // nav.then((val)=> tag=val);
 
@@ -154,6 +177,7 @@ class _CreateHead extends StatelessWidget {
         ),
         ElevatedButton(
             onPressed: (content!=null)?()async{
+              print('content:' + content.toString());
               _doPublish(context, id, content!, tag);
             }:null,
             style: ButtonStyle(

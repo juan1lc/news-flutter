@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/page/homepages/posts/post_detail.dart';
 
 import '../../../util/color.dart';
 
@@ -13,73 +14,87 @@ class PostCard extends StatelessWidget {
   final String photo, username, content;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
+      child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.only(top: 10),
-        child: Container(
-          // height: 300,
-            padding: const EdgeInsets.only(left: 20,right: 20, top: 10),
-            decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5)
-            ),
-          child: Column(
+        child: Column(
             children: <Widget> [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget> [
-                  Text("热门动态",
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.8),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18
+              Container(
+                padding: const EdgeInsets.only(left: 20,right: 20, top: 10),
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5)
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget> [
+                    Text("热门动态",
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.8),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  TextButton(
-                      onPressed: (){},
-                      child: Text("更多",
-                        style: TextStyle(color: loginColor,),
-                      )
-                  )
-                ],
-              ),
-              SizedBox(height: 2,),
-              Column(
-                children : <Widget> [
-                  Row(
-                    children: <Widget> [
-                      CircleAvatar(backgroundImage: AssetImage(photo), radius: 25,),
-                      SizedBox(width: 20,),
-                      Text(username),
-                      Spacer(),
-                      OutlinedButton(
+                    Spacer(),
+                    TextButton(
                         onPressed: (){},
-                        child: Text("+ 关注", style: TextStyle(color: loginColor),),
-                        style: ButtonStyle(
-                          side: MaterialStateProperty.all(BorderSide(width: 1,color: Color(0xffCAD0DB))),//边框
-                        ),
-                      )
-                    ],
+                        child: Text("更多",
+                          style: TextStyle(color: loginColor,),
+                        )
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 2),
+              InkWell(
+                onTap: (){
+                  // Navigator.push(context, MaterialPageRoute(builder:
+                  //     (context)=>PostDetail()));
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(left: 20,right: 20, top: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5)
                   ),
-                  SizedBox(height: 5,),
+                  child: Column(
+                    children : <Widget> [
+                      Row(
+                        children: <Widget> [
+                          CircleAvatar(backgroundImage: AssetImage(photo), radius: 25,),
+                          SizedBox(width: 20,),
+                          Text(username),
+                          Spacer(),
+                          OutlinedButton(
+                            onPressed: (){},
+                            child: Text("+ 关注", style: TextStyle(color: loginColor),),
+                            style: ButtonStyle(
+                              side: MaterialStateProperty.all(BorderSide(width: 1,color: Color(0xffCAD0DB))),//边框
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5,),
 
-                  Text(
-                    content,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  SizedBox(height: 2,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      IconContainer(Icons.repeat, "11", '/'),
-                      IconContainer(Icons.comment, "113", '/'),
-                      IconContainer(Icons.thumb_up, "1140", "/")
-                    ],
-                  )
-              ])
-        ])
-    ));
+                      Text(
+                        content,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 16),
+                      ),
+                      const SizedBox(height: 2,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          IconContainer(Icons.repeat, "11", '/'),
+                          IconContainer(Icons.comment, "113", '/'),
+                          IconContainer(Icons.thumb_up, "1140", "/")
+                        ],
+                      )
+                  ]),
+                ),
+              )
+        ]),
+      ),
+    );
   }
 }
 

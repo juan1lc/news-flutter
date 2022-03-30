@@ -19,15 +19,23 @@ class API {
   static final String registerAPI = '$baseUri/register';
   /// 修改用户信息接口 === [PUT]
   static final String updateUserInfo = '$baseUri/users/info/edit';
+  /// 根据用户id查找用户信息 === [GET]+/id
+  static final String findUserById = '$baseUri/users';
 
+  //  ******************** 动态相关 ********************
   /// 动态发布接口 === [POST]
   static final String publishPost = '$baseUri/posts/publish-post';
+  /// 获取用户全部动态接口 === [GET]
+  static final String getUserPosts = '$baseUri/posts/user-posts';
+
+  //  ******************** 标签相关 ********************
+  /// 获取标签接口 === [GET]
+  static final String allTags = '$baseUri/tags/list';
 
   /// 用户中心计数项接口 === [GET]
   static final String allCounts = "$baseUri/user/info/counts";
 
-  /// 获取标签接口 === [GET]
-  static final String allTags = '$baseUri/tags/list';
+
 
   /// 获取院系及专业信息 === [GET]
   static final String allFacultyAndSpecialty = '$baseUri/faculties';
