@@ -1,26 +1,63 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/api/api.dart';
+import 'package:http/http.dart' as http;
+import 'package:news_app/models/postCard.dart';
 import 'package:news_app/util/color.dart';
+
+import '../../../models/postVo.dart';
+import '../../../models/user.dart';
+import '../posts/post_preview.dart';
 
 class TagPage extends StatefulWidget {
   const TagPage({Key? key, required this.title,
-    required this.desc, required this.img}) : super(key: key);
+    required this.desc, required this.img, this.userid}) : super(key: key);
 
   final String title, desc, img;
+  final String? userid;
   @override
   _TagPageState createState() => _TagPageState();
 }
 
-const List<Tab> _tabs = <Tab> [
+List<Tab> _tabs = <Tab> [
   Tab(text:"热门动态"),
   Tab(text:"最新动态")
 ];
-final List<Widget>_tabContent=[
+List<Widget>_tabContent=[
   const Text('热门'),
   const Text('实时')
 ];
 
 class _TagPageState extends State<TagPage> with SingleTickerProviderStateMixin{
+  List<dynamic> _list = [];
+  List<PostVo> _postlist = [];
+
+  bool _hasPost = false;
+
+
+  void _getTagPosts(String title) async {
+    print('title:$title');
+    Uri apiUrl = Uri.parse(API.getTagLatestPosts+'?tag_name=$title');
+    print(apiUrl);
+
+    var response = await http.get(apiUrl);
+    if(response.statusCode == 200){
+      setState(() {
+        _list = json.decode(response.body);
+        print(json.decode(response.body));
+        for(int i=0; i<_list.length; i++){
+          _postlist.add(PostVo.fromJson(_list[i]));
+        }
+        print(_postlist);
+
+        if(_postlist.length>0) _hasPost=true;
+      });
+    }else{
+      print(response.statusCode);
+    }
+  }
 
   late TabController _tabController;
 
@@ -28,10 +65,15 @@ class _TagPageState extends State<TagPage> with SingleTickerProviderStateMixin{
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: _tabs.length);
-
+    _getTagPosts(widget.title);
     _tabController.addListener(() {
       _tabController.index;
     });
+
+    _tabContent=[
+      const Text('热门'),
+      TagPosts(postlist: _postlist, userid: widget.userid,)
+    ];
   }
 
   @override
@@ -42,6 +84,7 @@ class _TagPageState extends State<TagPage> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -147,3 +190,45 @@ class _TagHead extends StatelessWidget {
     );
   }
 }
+
+class TagPosts extends StatelessWidget {
+  const TagPosts({Key? key, required this.postlist, this.userid}) : super(key: key);
+
+  final List<PostVo> postlist;
+  final String? userid;
+  @override
+  Widget build(BuildContext context) {
+    return (postlist.length>0)?
+    Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Scrollbar(
+        child:ListView.builder(
+            itemCount: postlist.length,
+            itemBuilder: (BuildContext context, int index){
+
+              return Column(
+                children: [
+                  SizedBox(
+                    width:MediaQuery.of(context).size.width,
+
+                    child: PostPreView(avatar: postlist[index].authorPhoto,
+                      username: postlist[index].author, postCard: postlist[index].postCard, userid: userid,)
+                  ),
+                  const SizedBox(height:5),
+                ],
+              );
+            }
+        ),
+      ),
+    )
+        :Container(
+      width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: Text('暂无数据'),
+        ),
+    );
+  }
+}
+
+

@@ -34,6 +34,112 @@ class _CreatePage extends State<CreatePage>{
     _textEditingController.text = content!;}
   }
 
+  bool _draft_message=false;
+
+  _addDraft(String userId, String content, String? tag)async{
+    Uri apiUrl = Uri.parse((API.publishPost));
+    print(apiUrl);
+    var request = http.MultipartRequest("POST", apiUrl);
+    request.fields['userId'] = userId;
+    request.fields['content'] = content;
+    request.fields['isrepost'] = "false";
+    request.fields['postLike'] = "0";
+    request.fields['postBrowse'] = "0";
+    request.fields['commentCount'] = "0";
+    request.fields['postStatus'] = "1";
+    request.fields['location'] = "广东广州";
+    if(tag!=null) request.fields['tags']=tag;
+    print(request);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200){
+      _draft_message = true;
+    }else{
+      print(response.statusCode);
+    }
+  }
+
+  Future<dynamic> _createDraft(BuildContext context, String userId, String content, String? tag){
+    return showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10)),
+        ),
+        backgroundColor: primary,
+        builder: (BuildContext context){
+          return Container(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            height: 180,
+            child: Column(
+              children: <Widget>[
+                const Icon(Icons.horizontal_rule, color: Colors.black45, size: 26,),
+                const SizedBox(height: 10,),
+                FractionallySizedBox(
+                  widthFactor: 1,
+                  child: TextButton(
+                    onPressed: () async {
+                      await _addDraft(userId, content, tag);
+                      if(_draft_message){
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("提示"),
+                              content: const Text("保存成功"),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("确定")),
+                              ],
+                            );
+                          },
+                        );
+                      }else{
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("提示"),
+                              content: const Text("修改失败"),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("确定")),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: const Text('保存为草稿', style: TextStyle(
+                        color: Colors.black87, fontSize: 16, letterSpacing: 1.5)),
+                  ),
+                ),
+                const SizedBox(height: 5,),
+                FractionallySizedBox(
+                  widthFactor: 1,
+                  child: TextButton(
+                    onPressed: (){Navigator.pop(context);Navigator.pop(context); },
+                    child: const Text('取消', style: TextStyle(
+                        color: Colors.black87, fontSize: 16, letterSpacing: 1.5)),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -51,6 +157,16 @@ class _CreatePage extends State<CreatePage>{
               centerTitle: true,
               title: _CreateHead(id: userInfo!.id,username: userInfo!.username,
                   content:content, tag: widget.tag,),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.grey,),
+                onPressed: ()async{
+                  if(content != null) {
+                    await _createDraft(context, userInfo!.id, content!, widget.tag);
+                  }else{
+                    Navigator.pop(context);
+                  }
+                },
+              ),
               foregroundColor: active,
               backgroundColor: primary,
             ),
@@ -84,7 +200,7 @@ class _CreatePage extends State<CreatePage>{
                   ),
                   (widget.tag!=null)? TextButton(
                       onPressed: (){}, child: Text('# '+widget.tag.toString(),
-                      style:TextStyle(
+                      style: const TextStyle(
                         color: loginColor
                       ))
                   ):TextButton(
@@ -92,8 +208,7 @@ class _CreatePage extends State<CreatePage>{
                         var nav = Navigator.push(context,
                             MaterialPageRoute(builder: (context)=>TagList(pre_content: content,))
                         );
-                      }, child: Text('点击添加标签',
-                      style:TextStyle(
+                      }, child: const Text('点击添加标签', style:TextStyle(
                           color: loginColor
                       ))
                   ),

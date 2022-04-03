@@ -241,7 +241,7 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
               const SizedBox(height: 4),
               const Text(
-                "欢迎来到毕业生噩梦岛",
+                "欢迎来到毕业生交流社区",
                 style: TextStyle(
                     fontSize: 14,
                     color: Color(0xFF7A869A),

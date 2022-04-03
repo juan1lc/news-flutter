@@ -6,11 +6,12 @@ import 'notification_area.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key, required this. avatar,
-    required this.username, required this.isLogin})
+    required this.username, required this.isLogin, this.userid})
       : super(key: key);
 
   final String username, avatar;
   final bool isLogin;
+  final String? userid;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,7 +24,7 @@ class Header extends StatelessWidget {
             SizedBox(
               height: 120,
             ),
-            TagBanner()
+            TagBanner(userid: userid,)
           ],
         )
       ]),

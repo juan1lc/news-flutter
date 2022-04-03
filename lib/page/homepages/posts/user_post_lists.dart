@@ -153,7 +153,7 @@ class _UserPostListState extends State<UserPostList> {
                               width:MediaQuery.of(context).size.width,
                               //height: 200,
                               child: PostPreView(avatar: user!.photo!, username: user!.username,
-                                  postCard: _postlist[index]),
+                                  postCard: _postlist[index], userid: widget.userid,),
                             ),
                             SizedBox(height:5),
                           ],

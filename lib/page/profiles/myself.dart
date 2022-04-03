@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/page/homepages/posts/post_preview.dart';
 import 'package:news_app/page/profiles/editpages/editing_userinfo.dart';
 import 'package:news_app/util/color.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../models/user.dart';
 import '../../provider/user_info_provider.dart';
 import '../../util/color.dart';
+import '../homepages/drafts/draft_list.dart';
 import '../homepages/posts/user_post_lists.dart';
 
 class MyselfPage extends StatefulWidget{
@@ -61,7 +63,7 @@ class _MyselfPage extends State<MyselfPage>{
             appBar: AppBar(
               centerTitle: true,
               title: const Text('个 人 中 心'),
-              titleTextStyle: TextStyle(
+              titleTextStyle: const TextStyle(
                   color: loginColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 16
@@ -74,11 +76,11 @@ class _MyselfPage extends State<MyselfPage>{
                 Container(
                   height: 100,
                   color: primary,
-                  padding: EdgeInsets.only(top:16, left:16),
+                  padding: const EdgeInsets.only(top:16, left:16),
                   child: Row(
                     children: <Widget> [
                       CircleAvatar(backgroundImage: AssetImage(userInfo!.photo.toString()), radius: 28,),
-                      SizedBox(width: 20,),
+                      const SizedBox(width: 20,),
                       Expanded(
                         child: ListTile(
                           title: Text(userInfo!.username, style: TextStyle(fontSize: 20),),
@@ -96,8 +98,8 @@ class _MyselfPage extends State<MyselfPage>{
                       children: <Widget>[
                         Expanded(
                           child:ListTile(
-                            title: new Center(child: Text("7")),
-                            subtitle: new Center(child: Text("动态"),),
+                            title: const Center(child: Text("7")),
+                            subtitle: const Center(child: Text("动态"),),
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(
                                   builder: (context)=>UserPostList(userid: userInfo!.id,)));
@@ -106,21 +108,21 @@ class _MyselfPage extends State<MyselfPage>{
                         ),
                         Expanded(
                           child:ListTile(
-                            title: new Center(child: Text("200")),
-                            subtitle: new Center(child: Text("关注"),),
+                            title: const Center(child: Text("200")),
+                            subtitle: const Center(child: const Text("关注"),),
                           ),
                         ),
                         Expanded(
                           child:ListTile(
-                            title: new Center(child: Text("20")),
-                            subtitle: new Center(child: Text("粉丝"),),
+                            title: const Center(child: Text("20")),
+                            subtitle: const Center(child: Text("粉丝"),),
                           ),
                         ),
 
                       ],
                     )
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Container(
                   color: primary,
                   child: ListTile(
@@ -132,14 +134,21 @@ class _MyselfPage extends State<MyselfPage>{
                 Container(
                   color: primary,
                   child: ListTile(
-                    leading: Icon(Icons.star),
-                    title: Text("我的收藏"),
-                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: (){},
+                    leading: const Icon(Icons.star),
+                    title: const Text("我的收藏"),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
                   ),
                 ),
                 Container(
                   color: primary,
                   child: ListTile(
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(
+                              builder: (context)=>UserPostList(userid: userInfo!.id,))
+                          );
+                    },
                     leading: Icon(Icons.palette),
                     title: Text("我的动态"),
                     trailing: Icon(Icons.keyboard_arrow_right),
@@ -148,6 +157,12 @@ class _MyselfPage extends State<MyselfPage>{
                 Container(
                   color: primary,
                   child: ListTile(
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(
+                              builder: (context)=>DraftList(userid: userInfo!.id,))
+                      );
+                    },
                     leading: Icon(Icons.drafts),
                     title: Text("我的草稿箱"),
                     trailing: Icon(Icons.keyboard_arrow_right),

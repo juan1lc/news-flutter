@@ -192,7 +192,7 @@ class _loginFormState extends State<LoginForm> {
             ),
             const SizedBox(height: 5),
             const Text(
-              "欢迎来到毕业生噩梦岛",
+              "欢迎来到毕业生交流社区",
               style: TextStyle(
                   fontSize: 14,
                   color: Color(0xFF7A869A),

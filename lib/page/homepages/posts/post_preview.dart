@@ -5,10 +5,11 @@ import 'package:news_app/util/color.dart';
 
 class PostPreView extends StatelessWidget {
   const PostPreView({Key? key, required this.avatar,
-    required this.username, required this.postCard})
+    required this.username, required this.postCard, this.userid})
       : super(key: key);
 
   final String avatar, username;
+  final String? userid;
   final PostCard postCard;
 
   @override
@@ -18,7 +19,8 @@ class PostPreView extends StatelessWidget {
       onTap: (){
         Navigator.push(context, MaterialPageRoute(
             builder: (context)=>
-                PostDetail(postCard: postCard, username: username, avatar: avatar)
+                PostDetail(postCard: postCard, username: username, avatar: avatar,
+                userid: userid,)
         ));
       },
       child: Container(
@@ -86,7 +88,9 @@ class PostPreView extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    IconButton(onPressed: (){}, icon: const Icon(
+                    IconButton(onPressed: (){
+
+                      }, icon: const Icon(
                       Icons.thumb_up_outlined, color: Colors.grey,)),
                     const SizedBox(width: 1,),
                     (postCard.postLike==0)?const Text('点赞',

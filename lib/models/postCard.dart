@@ -1,15 +1,17 @@
 class PostCard {
+  final String id;
+  final String userid;
   final String? postImgs;
   final String content;
   final bool isrepost;
   final String? tags;
-  final int postLike;
+  late final int postLike;
   final int postBrowse;
   final int commentCount;
   final String location;
   final String? updateTime;
 
-  PostCard({this.postImgs, required this.content, required this.isrepost,
+  PostCard({required this.id, required this.userid, this.postImgs, required this.content, required this.isrepost,
       this.tags, required this.postLike, required this.postBrowse, required this.commentCount,
       required this.location, this.updateTime});
 
@@ -17,7 +19,9 @@ class PostCard {
   String toString() {
     String post='false';
     if(isrepost==true) post='true';
-    return '{postImgs: '+postImgs.toString()
+    return '{id: '+ id
+        +'userid: '+userid.toString()
+        +'postImgs: '+postImgs.toString()
         +', content: '+content
         +', isrepost: '+post
         +', tags: '+tags.toString()
@@ -31,8 +35,10 @@ class PostCard {
 
   factory PostCard.fromJson(Map<String, dynamic> json){
     String time = json['updateTime'].toString();
-    String updateTime = time.substring(0, 9)+' '+ time.substring(11, 18);
+    String updateTime = time.substring(0, 10)+' '+ time.substring(11, 18);
     return PostCard(
+      id: json.putIfAbsent('id', () => null),
+      userid: json.putIfAbsent('userid', () => null),
       postImgs: json.putIfAbsent('postImgs', () => ''),
       content: json.putIfAbsent('content', () => null),
         isrepost: json.putIfAbsent('isrepost', () => false),

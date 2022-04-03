@@ -14,19 +14,36 @@ class API {
 
   //  ******************** 用户相关 ********************
   /// 账号密码登录 === [POST]
-  static final String findUserAPI = '$baseUri/login/by-name';
+  static const String findUserAPI = '$baseUri/login/by-name';
   /// 新用户注册接口 === [POST]
-  static final String registerAPI = '$baseUri/register';
+  static const String registerAPI = '$baseUri/register';
   /// 修改用户信息接口 === [PUT]
-  static final String updateUserInfo = '$baseUri/users/info/edit';
+  static const String updateUserInfo = '$baseUri/users/info/edit';
   /// 根据用户id查找用户信息 === [GET]+/id
-  static final String findUserById = '$baseUri/users';
+  static const String findUserById = '$baseUri/users';
 
   //  ******************** 动态相关 ********************
   /// 动态发布接口 === [POST]
-  static final String publishPost = '$baseUri/posts/publish-post';
+  static const String publishPost = '$baseUri/posts/publish-post';
   /// 获取用户全部动态接口 === [GET]
-  static final String getUserPosts = '$baseUri/posts/user-posts';
+  static const String getUserPosts = '$baseUri/posts/user-posts';
+  /// 获取某标签下最新动态 === [GET]
+  static const String getTagLatestPosts = '$baseUri/posts/tags';
+  /// 获取用户全部草稿接口 === [GET]
+  static const String getUserDrafts = '$baseUri/posts/user-drafts';
+  /// 发布草稿接口 === [PUT]
+  static const String publishDrafts = '$baseUri/posts/publish-draft';
+
+  /// 点赞动态接口 === [POST]
+  static const String likePost = '$baseUri/posts/like';
+  /// 点赞某动态的所有用户接口 === [GET]
+  static const String postLikers = '$baseUri/posts/all-likers';
+
+  //  ******************** 文章相关 ********************
+  /// 获取首页全部文章接口 === [GET]
+  static const String getAllArticles = '$baseUri/articles/all';
+  /// 获取某文章的详情页 === [GET]
+  static const String getArticleDetail = '$baseUri/articles/detail';
 
   //  ******************** 标签相关 ********************
   /// 获取标签接口 === [GET]
@@ -37,17 +54,6 @@ class API {
 
 
 
-  /// 获取院系及专业信息 === [GET]
-  static final String allFacultyAndSpecialty = '$baseUri/faculties';
-
-  /// 获取最新动态 === [GET]
-  static final String newMoving = '$baseUri/moving/new';
-
-  /// 获取最新动态 === [GET]
-  static final String hotMoving = '$baseUri/moving/hot';
-
-  /// 获取指定动态的详情（路径参数） === [GET]
-  static final String movingDetailsById = '$baseUri/moving/details/';
 
   /// 添加评论 === [POST]
   static final String addComment = '$baseUri/moving/comment/add';

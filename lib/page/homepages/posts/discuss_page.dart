@@ -52,15 +52,15 @@ class _DiscussPage extends State<DiscussPage>{
               child: Column(
                 children: <Widget>[
                   Header(avatar: userInfo!.photo!,
-                    username: userInfo!.username, isLogin: isLogin,),
+                    username: userInfo!.username, isLogin: isLogin, userid: userInfo!.id,),
                   UserBanner(title: "用 户 推 荐"),
 
-                  // PostCard(
-                  //     photo: 'assets/images/avatar3.jpg',
-                  //     username: "刘宇",
-                  //     content: "武汉两名参与新型肺炎救治医生被患者家属打伤防护服被撕扯 谨防已介入,"
-                  //
-                  // )
+                  PostCard(
+                      photo: 'assets/images/avatar3.jpg',
+                      username: "刘宇",
+                      content: "武汉两名参与新型肺炎救治医生被患者家属打伤防护服被撕扯 谨防已介入,"
+
+                  )
 
                 ],
               ),
