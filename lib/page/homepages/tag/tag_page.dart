@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/api/api.dart';
 import 'package:http/http.dart' as http;
-import 'package:news_app/models/postCard.dart';
+import 'package:news_app/models/posts/postCard.dart';
 import 'package:news_app/util/color.dart';
 
-import '../../../models/postVo.dart';
+import '../../../models/posts/postVo.dart';
 import '../../../models/user.dart';
 import '../posts/post_preview.dart';
 
@@ -52,7 +52,7 @@ class _TagPageState extends State<TagPage> with SingleTickerProviderStateMixin{
         }
         print(_postlist);
 
-        if(_postlist.length>0) _hasPost=true;
+        if(_postlist.isNotEmpty) _hasPost=true;
       });
     }else{
       print(response.statusCode);

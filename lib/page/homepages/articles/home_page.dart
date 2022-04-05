@@ -23,13 +23,13 @@ const List<Tab> _tabs = <Tab> [
 ];
 
 final List<Widget> _tabContent = [
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
+  ArticleList(type_id: "1",),
+  ArticleList(type_id: "1"),
+  ArticleList(type_id: "2"),
+  ArticleList(type_id: "3"),
+  ArticleList(type_id: "4"),
+  ArticleList(type_id: "5"),
+  ArticleList(type_id: "6"),
 ];
 
 class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin{

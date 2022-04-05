@@ -1,4 +1,4 @@
-import 'package:news_app/models/postCard.dart';
+import 'package:news_app/models/posts/postCard.dart';
 
 class PostVo {
   final String authorPhoto;

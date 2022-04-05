@@ -23,7 +23,7 @@ class ArticleVo{
   factory ArticleVo.fromJson(Map<String, dynamic> json){
     Article article = Article.fromJson(json['article']);
     return ArticleVo(
-        authorId: json.putIfAbsent('id', () => null),
+        authorId: json.putIfAbsent('authorId', () => null),
         authorPhoto: json.putIfAbsent('authorPhoto', () => null),
         author: json.putIfAbsent('author', () => null),
         article: article

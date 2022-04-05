@@ -6,7 +6,7 @@ import 'package:news_app/util/color.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../api/api.dart';
-import '../../../models/postCard.dart';
+import '../../../models/posts/postCard.dart';
 import '../../../models/user.dart';
 
 class DraftList extends StatefulWidget {

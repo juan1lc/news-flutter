@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/models/postCard.dart';
+import 'package:news_app/models/posts/postCard.dart';
 import 'package:news_app/page/homepages/posts/post_detail.dart';
 import 'package:news_app/util/color.dart';
 

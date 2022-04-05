@@ -13,7 +13,7 @@ class PostLikers{
   String toString() {
 
     return '{id: '+ id
-        +'postid: '+postid
+        +', postid: '+postid
         +', userid: '+userid
         +', username: '+username
         +', photo: '+photo

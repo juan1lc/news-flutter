@@ -44,6 +44,10 @@ class API {
   static const String getAllArticles = '$baseUri/articles/all';
   /// 获取某文章的详情页 === [GET]
   static const String getArticleDetail = '$baseUri/articles/detail';
+  /// 获取某文章的喜欢列表 === [GET]
+  static const String articleLikers = '$baseUri/like-articles/all-likers';
+  /// 喜欢/取消喜欢某文章 === [POST]
+  static const String likeArticle = '$baseUri/like-articles/like';
 
   //  ******************** 标签相关 ********************
   /// 获取标签接口 === [GET]

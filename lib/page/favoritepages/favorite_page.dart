@@ -21,10 +21,10 @@ const List<Tab> _tabs = <Tab> [
 
 final List<Widget> _tabContent = [
   const LikeForm(),
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
-  const ArticleList(),
+  ArticleList(type_id: "1"),
+  ArticleList(type_id: "1"),
+  ArticleList(type_id: "1"),
+  ArticleList(type_id: "1"),
 ];
 
 class _FavoritePage extends State<FavoritePage> with SingleTickerProviderStateMixin{

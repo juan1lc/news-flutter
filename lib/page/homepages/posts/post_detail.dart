@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:news_app/api/api.dart';
 import 'package:http/http.dart' as http;
-import 'package:news_app/models/postLikers.dart';
+import 'package:news_app/models/posts/postLikers.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/postCard.dart';
+import '../../../models/posts/postCard.dart';
 import '../../../models/user.dart';
 import '../../../provider/user_info_provider.dart';
 import '../../../util/color.dart';
+import '../../../widget/PostLikers.dart';
 
 class PostDetail extends StatefulWidget {
   const PostDetail({Key? key, required this.postCard,
@@ -30,6 +31,7 @@ class _PostDetailState extends State<PostDetail> {
   List<dynamic> _list=[];
   List<PostLikers> _postLikers=[];
   GlobalKey<_PostDetailState> _key=GlobalKey();
+  PostLikersView? _likersView;
 
   _checkLiked(String userId, String postid) async {
     Uri apiUrl = Uri.parse(API.likePost+'/$postid/$userId');
@@ -57,6 +59,7 @@ class _PostDetailState extends State<PostDetail> {
       print(json.decode(response.body));
       setState(() {
         likeNum = json.decode(response.body);
+        _likersView = PostLikersView(postLikers: _postLikers,);
       });
     }else{
       print(response.statusCode);
@@ -75,7 +78,7 @@ class _PostDetailState extends State<PostDetail> {
           _likers.add(PostLikers.fromJson(_list[i]));
           _postLikers = _likers;
         }
-        print(_postLikers);
+        _likersView = PostLikersView(postLikers: _likers,);
       });
     }else{
       print(response.statusCode);
@@ -91,6 +94,7 @@ class _PostDetailState extends State<PostDetail> {
       _checkLiked(widget.userid!, widget.postCard.id);
     }
     _likeList(widget.postCard.id);
+    // _likersView = PostLikersView(postLikers: _postLikers,);
   }
 
   User? userInfo;
@@ -192,14 +196,17 @@ class _PostDetailState extends State<PostDetail> {
                             ),
                           ),
                           const SizedBox(height: 6,),
-                          (_postLikers.isNotEmpty)? _likeView(context, _postLikers)
-                              :SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height-400,
-                                child: const Center(
-                                  child: Text('暂无数据'),
+                          Container(
+                            child: (_postLikers.isNotEmpty)? _likersView
+                                :SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.height-400,
+                                  child: const Center(
+                                    child: Text('暂无数据'),
+                                  ),
                             ),
-                          )
+                          ),
+
                           ],
                       )
                     ],
@@ -224,7 +231,6 @@ class _PostDetailState extends State<PostDetail> {
                       )
                     ]
                 ),
-
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -251,11 +257,11 @@ class _PostDetailState extends State<PostDetail> {
                     ),
                     InkWell(
                       onTap: (widget.userid!=null)?()async{print('赞按钮');
-                      _likePost(userInfo!.id, widget.postCard.id);
-                      _likeList(widget.postCard.id);
+                      await _likePost(userInfo!.id, widget.postCard.id);
                       setState(() {
                         _liked = !_liked;
-                        _likeView(context, _postLikers);
+                        _likeList(widget.postCard.id);
+
                       });
                       }:(){
                         showDialog(
@@ -332,49 +338,8 @@ class _Publisher extends StatelessWidget {
   }
 }
 
-Widget _likeView(BuildContext context, List<PostLikers> _postLikers){
-  return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height-380,
-      color: primary,
-      child: ListView.builder(
-        itemCount: _postLikers.length,
 
-        itemBuilder: (BuildContext context, int index){
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left:20, right: 20, top: 8, bottom: 8),
-            decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(width: 0.5, color: Colors.grey))
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(_postLikers[index].photo),
-                  radius: 25,
-                ),
-                SizedBox(width: 20,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(_postLikers[index].username, style: TextStyle(
-                        color: Colors.black87,fontSize: 18
-                    ),),
-                    SizedBox(height: 2,),
-                    Text(_postLikers[index].liketime, style: TextStyle(
-                        color: Colors.black45,fontSize: 15
-                    ),),
-                  ],
-                ),
-                const Spacer(),
-                const Icon(Icons.thumb_up_outlined, color: loginColor,),
-              ],
-            ),
-          );
-        },
-      ));
-}
+
+
 
 
